@@ -4,11 +4,11 @@
 
 const admin = {
     nombreDeAdmin: 'admin',
-    contraniaDeAdmin: 'admin',
+    contraseniaDeAdmin: 'admin',
 }
 
 class UsuarioNormal {
-    constructor(nombre, contrasenia, mail) {
+    constructor(nombre, contrasenia) {
         this.nombreUsuario = nombre
         this.contraseniaUsuario = contrasenia
     }
@@ -25,11 +25,10 @@ let usuarioCreado
 
 function crearUsuario() {
 
-    nombre = prompt('Ingrese el nombre de su NUEVO usuario')
-    contrasenia = prompt('Ingrese la contraseña de su NUEVO usuario')
-    mail = prompt('Ingrese el mail de su NUEVO usuario')
+    let nombre = prompt('Ingrese el nombre de su NUEVO usuario')
+    let contrasenia = prompt('Ingrese la contraseña de su NUEVO usuario')
 
-    usuarioCreado = new UsuarioNormal(nombre, contrasenia, mail)
+    usuarioCreado = new UsuarioNormal(nombre, contrasenia)
 
     return usuarioCreado
 }
@@ -46,78 +45,88 @@ let contraseniaDelUsuario = prompt('Ingrese la contraseña de su usuario')
 let total = 0
 
 while (true) {
-    if (nombreDelUsuario === admin.contraniaDeAdmin && contraseniaDelUsuario === admin.contraniaDeAdmin) {
+    if (nombreDelUsuario === admin.nombreDeAdmin && contraseniaDelUsuario === admin.contraseniaDeAdmin) {
         console.log('Bienvenido al perfil de administrador')
-    } else if ((nombreDelUsuario === usuarioCreado.nombreUsuario && contraseniaDelUsuario === usuarioCreado.contraseniaUsuario)
-        && nombreDelUsuario !== '' || contraseniaDelUsuario !== '') {
+        break
+
+    } else if (nombreDelUsuario === usuarioCreado.nombreUsuario && contraseniaDelUsuario === usuarioCreado.contraseniaUsuario
+        && nombreDelUsuario !== ''
+        || contraseniaDelUsuario !== '') {
         console.log('Bienvenido ' + nombreDelUsuario + ' al sitio de FrosTech ')
 
 
         let pedido = pedir_num('Que desea pedir?\n 1)Helados\n 2)Tortas y Café\n 3)Tortas Heladas\n4)Salir', 1, 4)
-        let precioCucurucho = 500
-        let precioBombones = 1000
-        let precioFamiliar1 = 1500
-        let precioFamiliar2 = 2000
-        let precioFamiliar3 = 2500
-        let precioFamiliar4 = 3000
-        let precioFamiliar5 = 3500
-        let precioTortasYCafe = 5000
-        let precioTortasHeladas = 4000
+
+        class Helados {
+            constructor(nombre, categoria, precio) {
+                this.nombre = nombre
+                this.categoria = categoria
+                this.precio = precio
+            }
+        }
+
+        let cucurucho = new Helados('Cucurucho', 'Helados', 500)
+        let bombones = new Helados('Bombones', 'Helados', 1000)
+        let cuartoKg = new Helados('1/4kg', 'Helados', 1500)
+        let medioKg = new Helados('1/2kg', 'Helados', 2000)
+        let unKg = new Helados('1kg', 'Helados', 3000)
+        let dosKg = new Helados('2kg', 'Helados', 3500)
+        /* let helados = [cucurucho, bombones, cuartoKg, medioKg, unKg, dosKg]
+        console.log(helados[0].precio) */
+
+        let tortasYCafe = new Helados('Torta y Cafe', 'TortasYCafe', 5000)
+
+        let tortasHeladas = new Helados('Torta Heladas', 'TortasHeladas', 4000)
+
 
         if (pedido === 1) {
             //quiere un helado
-            let gustoDeHelado = pedir_num('Que helado quiere?\n 1)Cucurucho $500 \n 2)Bombones $1000 \n 3)Familiar')
+            let tipoDeHelado = pedir_num('Que helado quiere?\n 1)Cucurucho $500 \n 2)Bombones $1000 \n 3)Familiar')
 
             // let saldo = pedir_num('Cuanta plata tenes?', 0, 10000)
 
 
-            switch (gustoDeHelado) {
+            switch (tipoDeHelado) {
                 case 1:
                     //eligio cucurucho
-                    calcularTotal(precioCucurucho);
-                    alert('Se añadió un cucurucho a su pedido')
+                    calcularTotal(cucurucho.precio);
+                    alert('Se añadió un ' + cucurucho.nombre + ' a su pedido')
 
                     continue;
                 case 2:
                     //eligio bombones
 
-                    calcularTotal(precioBombones);
-                    alert('Se añadió un bombon a su pedido')
+                    calcularTotal(bombones.precio);
+                    alert('Se añadió un ' + bombones.nombre + ' a su pedido')
                     continue;
                 case 3:
                     //quiere un helado familiar
-                    let cantDeKilos = pedir_num('Cuantos kg?\n 1)1/4kg\n2)1/2kg\n3)1kg\n4)1 1/2kg\n5)2kg', 1, 5)
+                    let cantDeKilos = pedir_num('Cuantos kg?\n 1)1/4kg\n2)1/2kg\n3)1kg\n4)2kg', 1, 4)
 
                     switch (cantDeKilos) {
                         case 1:
                             //eligio 1/4
 
-                            calcularTotal(precioFamiliar1);
-                            alert('Se añadió un 1/4 kg a su pedido')
+                            calcularTotal(cuartoKg.precio);
+                            alert('Se añadió un ' + cuartoKg.nombre + ' a su pedido')
                             continue;
                         case 2:
                             //eligio 1/2kg
 
-                            calcularTotal(precioFamiliar2);
-                            alert('Se añadió un 1/2 kg a su pedido')
+                            calcularTotal(medioKg.precio);
+                            alert('Se añadió un ' + medioKg.nombre + ' a su pedido')
                             continue;
                         case 3:
                             //quiere un 1kg
 
-                            calcularTotal(precioFamiliar3);
-                            alert('Se añadió un 1 kg a su pedido')
+                            calcularTotal(unKg.precio);
+                            alert('Se añadió un ' + unKg.nombre + ' a su pedido')
                             continue;
                         case 4:
-                            //quiere un 1 1/2 kg
-
-                            calcularTotal(precioFamiliar4);
-                            alert('Se añadió un 1 1/2 kg a su pedido')
-                            continue;
-                        case 5:
                             //quiere un 2kg
 
-                            calcularTotal(precioFamiliar5);
-                            alert('Se añadió un 2kg a su pedido')
+                            calcularTotal(dosKg.precio);
+                            alert('Se añadió un ' + dosKg.nombre + ' a su pedido')
                             continue;
                         default:
                             alert('No tenemos lo que usted quiere')
@@ -132,19 +141,19 @@ while (true) {
             //quiere tortas y cafe
 
 
-            let tortasYCafe = pedir_num('Que torta quiere?\n 1)Brownie Merengado\n2)Lemon Pie\n3)Torta de Coco', 1, 3)
+            let tipoDeTortas = pedir_num('Que torta quiere?\n 1)Brownie Merengado\n2)Lemon Pie\n3)Torta de Coco', 1, 3)
 
-            if (tortasYCafe == 1) {
-                calcularTotal(precioTortasYCafe);
+            if (tipoDeTortas == 1) {
+                calcularTotal(tortasYCafe.precio);
                 alert('El brownie merengado fue incluido a su pedido')
                 continue
 
-            } else if (tortasYCafe == 2) {
-                calcularTotal(precioTortasYCafe);
+            } else if (tipoDeTortas == 2) {
+                calcularTotal(tortasYCafe.precio);
                 alert('El Lemon Pie fue incluido a su pedido')
                 continue
-            } else if (tortasYCafe == 3) {
-                calcularTotal(precioTortasYCafe);
+            } else if (tipoDeTortas == 3) {
+                calcularTotal(tortasYCafe.precio);
                 alert('La Torta de Coco fue incluido a su pedido')
                 continue
             } else {
@@ -154,20 +163,20 @@ while (true) {
 
         } else if (pedido === 3) {
             //quiere tortas heladas
-            let tortasHeladas = pedir_num('Que torta quiere?\n 1)Cheseecake\n2)Selva Negra\n3)Chocotorta', 1, 3)
+            let tipoDeTortasHeladas = pedir_num('Que torta quiere?\n 1)Cheseecake\n2)Selva Negra\n3)Chocotorta', 1, 3)
 
 
 
-            if (tortasHeladas == 1) {
-                calcularTotal(precioTortasHeladas);
+            if (tipoDeTortasHeladas == 1) {
+                calcularTotal(tortasHeladas.precio);
                 alert('El Cheseecake fue incluido a su pedido')
                 continue
-            } else if (tortasHeladas == 2) {
-                calcularTotal(precioTortasHeladas);
+            } else if (tipoDeTortasHeladas == 2) {
+                calcularTotal(tortasHeladas.precio);
                 alert('La Selva Negra fue incluido a su pedido')
                 continue
-            } else if (tortasHeladas == 3) {
-                calcularTotal(precioTortasHeladas);
+            } else if (tipoDeTortasHeladas == 3) {
+                calcularTotal(tortasHeladas.precio);
                 alert('La Chocotorta fue incluido a su pedido')
                 continue
             } else {
@@ -189,7 +198,6 @@ while (true) {
         }
         alert('El total de su pedido es de: $' + total)
     }
-
     else {
         for (let i = 1; i <= 3; i++) {
             console.log('Debe ingresar un usuario válido')
@@ -221,11 +229,9 @@ function pedir_num(texto, min, max) {
     return (num)
 }
 
-
-
 function calcularTotal(precio) {
 
-    total = total + precio
+    total = Number(total + precio)
 
     return total
 }
