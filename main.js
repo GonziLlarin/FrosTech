@@ -49,11 +49,9 @@ while (true) {
         console.log('Bienvenido al perfil de administrador')
         break
 
-    } else if (nombreDelUsuario === usuarioCreado.nombreUsuario && contraseniaDelUsuario === usuarioCreado.contraseniaUsuario
-        && nombreDelUsuario !== ''
-        || contraseniaDelUsuario !== '') {
+    } else if ((nombreDelUsuario === usuarioCreado.nombreUsuario && contraseniaDelUsuario === usuarioCreado.contraseniaUsuario)
+        && (nombreDelUsuario !== '' || contraseniaDelUsuario !== '')) {
         console.log('Bienvenido ' + nombreDelUsuario + ' al sitio de FrosTech ')
-
 
         let pedido = pedir_num('Que desea pedir?\n 1)Helados\n 2)Tortas y Café\n 3)Tortas Heladas\n4)Salir', 1, 4)
 
@@ -199,23 +197,25 @@ while (true) {
         alert('El total de su pedido es de: $' + total)
     }
     else {
-        for (let i = 1; i <= 3; i++) {
-            console.log('Debe ingresar un usuario válido')
+        while (!(nombreDelUsuario === usuarioCreado.nombreUsuario && contraseniaDelUsuario === usuarioCreado.contraseniaUsuario)) {
+
+
             nombreDelUsuario = prompt('Ingrese el nombre de su usuario')
             contraseniaDelUsuario = prompt('Ingrese la contraseña de su usuario')
 
-            if (nombreDelUsuario === usuarioCreado.nombreUsuario && contraseniaDelUsuario === usuarioCreado.contraseniaUsuario) {
-                // alert('Por su seguridad vuelva a introducir el usuario')
-                continue
 
-            } else if (i < 3) {
-                console.log('Intento n°:' + (i + 1))
-            } else if (i == 3) {
-                alert('Usuario bloqueado , vuelva a intentarlo más tarde')
+            console.log('Su usario o contraseña son invalidos')
+            if (confirm('Desea salir?') == true) { // que no se vaya de la pagina
+
+                alert('Nos vemos prontos')
                 break
+            } else {
+                continue // si logramos que se arrepienta vuelve a pedir
             }
         }
+        break
     }
+
 }
 
 function pedir_num(texto, min, max) {
